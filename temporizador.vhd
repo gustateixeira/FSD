@@ -17,36 +17,10 @@ architecture a1 of temporizador is
     signal segL, segH, minL, minH : std_logic_vector(3 downto 0);
     signal en1, en2, en3, en4: std_logic;
 begin
-	 process(clock, reset)
-    begin
-        if reset = '1' then
-            en1 <= '0';
-            en2 <= '0';
-            en3 <= '0';
-            en4 <= '0';	
-        elsif rising_edge(clock) then
-              if en = '1' and not (segL = "0000" and segH = "0000" and minL = "0000" and minH = "0000") then
-                en1 <= '1';
-            else
-                en1 <= '0';
-            end if;
-            if segL = "0000" and en1 = '1' then
-                en2 <= '1';
-            else
-                en2 <= '0';
-            end if;
-            if segH = "0000" and en2 = '1' then
-                en3 <= '1';
-            else
-                en3 <= '0';
-            end if;
-            if minL = "0000" and en3 = '1' then
-                en4 <= '1';
-            else
-                en4 <= '0';
-            end if;
-        end if;
-    end process;
+   en1 <= '1' when (en = '1' and not(segL = x"0" and segH = x"0" and minL = x"0" and minH = x"0")) else '0';
+   en2 <= '1' when (en1 = '1' and segL = x"0") else '0';
+   en3 <= '1' when (en2 = '1' and segH = x"0") else '0';
+   en4 <= '1' when (en3 = '1' and minL = x"0") else '0';
    sL : entity work.dec_counter port map 
    (	
 		clock => clock,
