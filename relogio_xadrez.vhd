@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------
 -- RELOGIO DE XADREZ
--- Author - Fernando Moraes - 25/out/2023
+-- Author - Gustavo Teixeira e Gustavo Munoz 08/11/2023
 -- Revision - Iaçanã Ianiski Weber - 30/out/2023
 --------------------------------------------------------------------------------
 library IEEE;
