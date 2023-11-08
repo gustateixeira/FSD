@@ -40,7 +40,7 @@ begin
 		load => load, 
 		init_time => init_time,
 		en => enj1,
-		cont => contj1)
+		cont => contj1_int)
 		;
     contador2 : entity work.temporizador port map
 	( 	
@@ -49,7 +49,7 @@ begin
 		load => load, 
 		init_time => init_time,
 		en => enj2,
-		cont => contj2
+		cont => contj2_int
 	);
 
     -- PROCESSO DE TROCA DE ESTADOS
@@ -57,7 +57,7 @@ begin
     begin
         if reset = '1' then
 			EA <= IDLE;
-		elsif rising_edge(clock) then
+		elsif clock'event and clock = '1' then
 			EA <= PE;
 			contj1 <= contj1_int;
 			contj2 <= contj2_int;
@@ -77,6 +77,8 @@ begin
 					enj2 <= '1';
 				else
 					PE <= IDLE;
+					enj2 <= '0';
+					enj1 <= '0';
 				end if;
 			when TURNJ1 =>
 				if j1 = '1' then
